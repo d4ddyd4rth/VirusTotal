@@ -12,11 +12,7 @@ import base64
 import sys
 from datetime import datetime, timezone
 
-# only to disable 'InsecureRequestWarning' messages when running from cmdline while on VPN
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
-requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
-
-vt_api_key = '58d7e80944c9f7dca5cc78abba84f43aa1bd7cc0021f840c057764c7da60cbe3'
+vt_api_key = '<VIRUSTOTAL API KEY>'
 
 def virustotal_url_query(url_to_query = '', api_key = ''):
     """
