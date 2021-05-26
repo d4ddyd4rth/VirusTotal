@@ -37,7 +37,7 @@ def virustotal_url_query(url_to_query = '', api_key = ''):
     response = requests.request(method='GET', url=query_url, headers=headers, verify=False) # 'verify' param is set to false to prevent any ssl issues while on VPN. Def a hack but it works :)
     decodedResponse = json.loads(response.text)
 
-    # everything below this line is just a report of the search results and everything above the actual logic to query the api
+    # everything below this line is just a report of the search results and everything above the is actual logic to query the api
     last_analysis_timestamp = int(decodedResponse['data']['attributes']['last_analysis_date'])
     first_submission_timestamp = int(decodedResponse['data']['attributes']['first_submission_date'])
 
