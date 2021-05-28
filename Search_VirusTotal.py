@@ -209,9 +209,7 @@ def virustotal_ipaddress_query(ip = '', api_key = ''):
     print('')
     print("Whois Information: ")
     print(str(decodedResponse['data']['attributes']['whois']))
-
     
-
 if len(sys.argv) > 1:
     if sys.argv[1] == '--url':
         virustotal_url_query(sys.argv[2], vt_api_key)
