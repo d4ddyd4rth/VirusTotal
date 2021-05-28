@@ -12,7 +12,7 @@ import base64
 import sys
 from datetime import datetime, timezone
 
-vt_api_key = '13445eead761c5100d4167bd62fce87bfafe8bf32ac709ca9e9218036e64d4b8' # add vt key
+vt_api_key = 'VIRUSTOTAL API KEY'
 
 def print_moosey():
     print("""
