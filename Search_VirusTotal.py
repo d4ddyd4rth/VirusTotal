@@ -222,7 +222,7 @@ else:
     print("""
     Script Usage: 
     --url   url to query
+    --ip    ip address to query
     --file  file hash to query
             accepts a SHA-256, SHA-1, or MD5 hash
-    --ip    ip address to query
     """)
