@@ -1,5 +1,4 @@
-# VirusTotal
-Collection of scripts to work with the VirusTotal API.
+# A collection of VirusTotal API scripts.
 
 ## Search_VirusTotal.py
 `--url`: url to query\
