@@ -49,7 +49,6 @@ def virustotal_url_query(url_to_query = '', api_key = ''):
     Supporting Documentation: https://developers.virustotal.com/v3.0/reference#url-info
 
     """
-    print_moosey()
 
     def encode_base64(data_to_encode):
         data_to_encode_bytes = data_to_encode.encode('ascii')
@@ -105,7 +104,6 @@ def virustotal_filehash_query(file_hash = '', api_key = ''):
     Supporting Documentation: https://developers.virustotal.com/v3.0/reference#file-info
     
     """
-    print_moosey()
 
     api_base = 'https://www.virustotal.com/api/v3/files/'
     api_endpoint = file_hash
@@ -167,7 +165,6 @@ def virustotal_ipaddress_query(ip = '', api_key = ''):
     Supporting Documentation: https://developers.virustotal.com/v3.0/reference#ip-info
 
     """
-    print_moosey()
 
     api_base = 'https://www.virustotal.com/api/v3/ip_addresses/'
     api_endpoint = ip
