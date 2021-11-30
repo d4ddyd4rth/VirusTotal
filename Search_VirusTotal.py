@@ -12,35 +12,35 @@ import base64
 import sys
 from datetime import datetime, timezone
 
-vt_api_key = 'VIRUSTOTAL API KEY'
+vt_api_key = '<API KEY'
 
-def print_moosey():
+def print_darth():
     print("""
-                                       /) \ |\    //
-                                 (\|  || \)u|   |F     /)
-                                  \```.FF  \  \  |J   .'/
-                               __  `.  `|   \  `-'J .'.'
-        ______           __.--'  `-. \_ J    >.   `'.'   .
-    _.-'      ""`-------'           `-.`.`. / )>.  /.' .<'
-  .'                                   `-._>--' )\ `--''
-  F .                                          ('.--'"
- (_/            VirusTotal Search                '
-  \                                             'o`.
-  |\                                                `.
-  J \          |              /      |                |
-   L \                       J       (             .  |
-   J  \      .               F        _.--'`._  /`. \_)
-    F  `.    |                       /        ""   "'
-    F   /\   |_          ___|   `-_.'
-   /   /  F  J `--.___.-'   F  - /
-  /    F  |   L            J    /|
- (_   F   |   L            F  .'||
-  L  F    |   |           |  /J  |
-  | J     `.  |           | J  | |              ____.---.__
-  |_|______ \  L          | F__|_|___.---------'
---'        `-`--`--.___.-'-'---
+    ' ' '''''''''=#= ' ''''-==*#######***===++* -'==+==**###**--+==============-'
+    '''-''''''''''-*#'''''''--+*#######*******==*-''-*=*########+--===============+
+    '''''''''' ''''#* ' '''''-'*####*====+=+======---**==********=-+===============
+    '-'''''''-''''=#=  '' '''-*#*= -=-'---'-''''-=--+ -' ''''''  -++===============
+    ++=+++=++++--'=#= ''''''+*=  '-' '''  ' '''-*='+=-''  '    '    '========**=*==
+    ============+-*# -+='''=+   -  '''-=''' ''''##=-*  ''''      '    =*===*******=
+    =============+##=-'-'-+    '   ''=##=''' ''-*#=-='  '=*+    '      =*===****=*=
+    ==============#==#**--     ' ''-+=*=-''''''+*='-+=--'-=#'       ' ' =*==*******
+    ==============-*###-+       '-=**##**======*=-'-++==++==*=          '=***=*****
+    ==============*###++       '--++==+==+===****-=-----==*=+    '       '*********
+    ==============###==         '-+==     ''=###*=''==-=+*##==+'-+      ' =********
+    =============*##*+'    '    ''--+-   '''=****+   -'  +=*=+-'''         =*******
+    ============*###--      '    ''--+'  '+=****'         '-++-'-   '  ''   *******
+    *===========###=+ '         '  '-++  =***#=             -  -'     '  '  =******
+    *===*======####-               ''-++*****-               '---       '''' =*****
+    **=****===*###='     '   -+++--''--+-***'-               ' ++-      ''''  *****
+    ***=***==*###*' ' '     ''''-++++++--===   ''''-''''-''''''+**+     '-'--'=****
+    **=*****=##*=         '' '+=====+--'''  '     '  '  '''-''         '-+==-'=****
+    **=*******='''   ' '  ' ''-+++-''''''    ''        '-+--         '  ''-+-=*****
+    **=*****=*=+-''''''   '----+++--''''''    ''    ---' '-='         ''-===*******
+    ******=-=*==+''-'' '''-++++====+--'''  '  '    -  '+-+*#=   ' -'+====**********
+    **=***=====-''''--'''-+==========+---''''''''   ' '-+=*##= ' ''-+=====***======
+    #* -U *****==-''-'''''-===*****======+++++----''''+=***===  ''' ' '++==*==++-++
+    #*******==++---'-'''''' '-==*###**===========+----=*##*='  ' ' '  ''''+========
     """)
-
 
 def virustotal_url_query(url_to_query = '', api_key = ''):
     """
@@ -63,14 +63,13 @@ def virustotal_url_query(url_to_query = '', api_key = ''):
             'Accept': 'application/json',
             'x-apikey': api_key
         }
-    response = requests.request(method='GET', url=query_url, headers=headers)
+    response = requests.request(method='GET', url=query_url, headers=headers, verify=False)
     decodedResponse = json.loads(response.text)
 
-    last_ip_response = requests.request(method='GET', url=query_url + '/last_serving_ip_address', headers=headers)
+    last_ip_response = requests.request(method='GET', url=query_url + '/last_serving_ip_address', headers=headers, verify=False)
     decoded_last_ip_reponse = json.loads(last_ip_response.text)
 
-    # everything below this line is just a report of the search results and everything above the actual logic to query the api
-
+    # everything below this line is just a report of the search results and everything above is the actual logic to query the api
     print('')
     print("VirusTotal URL Search Results for: ")
     print(url_to_query)
@@ -80,13 +79,11 @@ def virustotal_url_query(url_to_query = '', api_key = ''):
     print('First Submission Date: ' + str(datetime.fromtimestamp(decodedResponse['data']['attributes']['last_submission_date'], tz=timezone.utc)) + ' UTC')
     print('Last Analysis Date: ' + str(datetime.fromtimestamp(decodedResponse['data']['attributes']['last_submission_date'], tz=timezone.utc)) + ' UTC')
     print('Serving IP Address: ' + str(decoded_last_ip_reponse['data']['id']) + '\n')
-    print('')
     print('Reputation Scores:')
     print(" Harmless: " + str(decodedResponse['data']['attributes']['last_analysis_stats']['harmless']))
     print(" Malicious: " + str(decodedResponse['data']['attributes']['last_analysis_stats']['malicious']))
     print(" Suspicious: " + str(decodedResponse['data']['attributes']['last_analysis_stats']['suspicious']))
     print(" Undetected: " + str(decodedResponse['data']['attributes']['last_analysis_stats']['undetected']) + '\n')
-    print('')
     print('Detection Engine Results:')
     for i in decodedResponse['data']['attributes']['last_analysis_results']:
         if decodedResponse['data']['attributes']['last_analysis_results'][i]['category'] == 'harmless' or decodedResponse['data']['attributes']['last_analysis_results'][i]['category'] == 'undetected':
@@ -112,13 +109,13 @@ def virustotal_filehash_query(file_hash = '', api_key = ''):
             'Accept': 'application/json',
             'x-apikey': api_key
         }
-    response = requests.request(method='GET', url=query_url, headers=headers)
+    response = requests.request(method='GET', url=query_url, headers=headers, verify=False)
     decodedResponse = json.loads(response.text)
 
-    contacted_url_response = requests.request(method='GET', url=query_url + '/contacted_urls', headers=headers)
+    contacted_url_response = requests.request(method='GET', url=query_url + '/contacted_urls', headers=headers, verify=False)
     decoded_contacted_url_response = json.loads(contacted_url_response.text)
 
-    # everything below this line is just a report of the search results and everything above the actual logic to query the api
+    # everything below this line is just a report of the search results and everything above is the actual logic to query the api
     print('')
     print("VirusTotal URL Search Results for: ")
     print(file_hash)
@@ -173,10 +170,10 @@ def virustotal_ipaddress_query(ip = '', api_key = ''):
             'Accept': 'application/json',
             'x-apikey': api_key
         }
-    response = requests.request(method='GET', url=query_url, headers=headers)
+    response = requests.request(method='GET', url=query_url, headers=headers,verify=False)
     decodedResponse = json.loads(response.text)
 
-    # everything below this line is just a report of the search results and everything above the actual logic to query the api
+    # everything below this line is just a report of the search results and everything above is the actual logic to query the api
     print('')
     print("VirusTotal IP Search Results for: ")
     print(ip)
@@ -215,7 +212,7 @@ if len(sys.argv) > 1:
     elif sys.argv[1] == '--ip':
         virustotal_ipaddress_query(sys.argv[2], vt_api_key)
 else:
-    print_moosey()
+    print_darth()
     print("""
     Script Usage: 
     --url   url to query
